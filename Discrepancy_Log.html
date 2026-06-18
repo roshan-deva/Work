@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Welspun Coating – Discrepancy Log</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#1a2b3c;min-height:100vh}
+  header{background:linear-gradient(135deg,#06A6F2,#00B0BF,#00AA6B,#2C3384,#39137A);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .header-text h1{color:#fff;font-size:1.2rem;font-weight:700;letter-spacing:.5px}
+  .header-text p{color:rgba(255,255,255,.8);font-size:.75rem;margin-top:3px}
+  .toggle-btn{background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.5);color:#fff;padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:600;cursor:pointer;white-space:nowrap}
+  .toggle-btn:hover{background:rgba(255,255,255,.35)}
+  .container{max-width:1400px;margin:0 auto;padding:20px}
+  .card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:20px;margin-bottom:16px}
+  .card h2{font-size:.9rem;font-weight:700;color:#2C3384;margin-bottom:14px;text-transform:uppercase;letter-spacing:.6px;border-bottom:2px solid #06A6F2;padding-bottom:7px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .grid-full{grid-column:1/-1}
+  label{display:block;font-size:.75rem;font-weight:600;color:#2C3384;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+  input,select,textarea{width:100%;padding:8px 11px;border:1.5px solid #cbd5e0;border-radius:7px;font-size:.86rem;color:#1a2b3c;background:#f8fafc;transition:border .2s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:#06A6F2;background:#fff}
+  textarea{resize:vertical;min-height:58px}
+  .entry-form{background:#eef6ff;border:1.5px solid #b3d9f7;border-radius:10px;padding:16px;margin-bottom:14px}
+  .entry-form h3{font-size:.82rem;font-weight:700;color:#00B0BF;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+  .btn{padding:8px 18px;border:none;border-radius:7px;font-size:.83rem;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+  .btn-primary{background:#06A6F2;color:#fff}
+  .btn-primary:hover{background:#0595d8}
+  .btn-danger{background:#e53e3e;color:#fff}
+  .btn-outline{background:#fff;color:#2C3384;border:1.5px solid #2C3384}
+  .btn-outline:hover{background:#2C3384;color:#fff}
+  .btn-csv{background:linear-gradient(135deg,#00AA6B,#007a4d);color:#fff}
+  .btn-copy{background:#00B0BF;color:#fff}
+  .actions-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .table-wrap{overflow-x:auto;border-radius:10px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+  table{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff}
+  thead tr{background:linear-gradient(90deg,#2C3384,#39137A);color:#fff}
+  th{padding:10px 9px;text-align:left;font-weight:600;font-size:.74rem;letter-spacing:.4px;white-space:nowrap}
+  td{padding:8px 9px;border-bottom:1px solid #e2e8f0;vertical-align:top;max-width:180px}
+  tr:hover td{background:#f0f7ff}
+  tr.alt td{background:#fafbff}
+  .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.71rem;font-weight:600}
+  .badge-teal{background:#e0f5f5;color:#00B0BF;border:1px solid #b2e8e8}
+  .badge-navy{background:#e8eaf6;color:#2C3384;border:1px solid #c5cae9}
+  .badge-na{background:#f1f5f9;color:#94a3b8;border:1px solid #e2e8f0}
+  .del-btn{background:none;border:none;color:#e53e3e;cursor:pointer;font-size:1rem;padding:2px 6px;border-radius:4px}
+  .del-btn:hover{background:#fff5f5}
+  .empty-state{text-align:center;padding:36px;color:#94a3b8;font-size:.88rem}
+  .entry-count{background:#2C3384;color:#fff;border-radius:20px;padding:2px 10px;font-size:.76rem;font-weight:700;margin-left:6px}
+  .mobile-entries{display:none}
+  .m-entry-card{background:#fff;border-radius:10px;box-shadow:0 1px 8px rgba(0,0,0,.08);padding:14px;margin-bottom:12px;border-left:4px solid #2C3384}
+  .m-entry-card .m-pipe{font-size:1rem;font-weight:700;color:#2C3384;margin-bottom:8px}
+  .m-entry-card .m-row{font-size:.82rem;margin-bottom:5px;display:flex;gap:6px}
+  .m-entry-card .m-label{font-weight:600;color:#64748b;min-width:90px;flex-shrink:0}
+  .m-del-btn{margin-top:10px;background:#fff5f5;border:1px solid #fed7d7;color:#e53e3e;padding:5px 12px;border-radius:6px;font-size:.78rem;font-weight:600;cursor:pointer}
+  .toast{position:fixed;bottom:20px;right:16px;left:16px;max-width:340px;margin:0 auto;background:#1a2b3c;color:#fff;padding:11px 18px;border-radius:8px;font-size:.84rem;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;z-index:999;text-align:center}
+  .toast.show{opacity:1;transform:translateY(0)}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff;border-radius:12px;padding:24px;max-width:340px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.2)}
+  .modal h3{color:#2C3384;margin-bottom:8px;font-size:.98rem}
+  .modal p{color:#64748b;font-size:.85rem;margin-bottom:18px}
+  .modal-btns{display:flex;gap:10px;justify-content:center}
+  body.mobile-mode .container{padding:12px}
+  body.mobile-mode .card{padding:14px}
+  body.mobile-mode .grid-3,body.mobile-mode .grid-4{grid-template-columns:1fr}
+  body.mobile-mode .actions-bar{flex-direction:column;align-items:stretch}
+  body.mobile-mode .actions-bar .btn{width:100%;justify-content:center;padding:11px}
+  body.mobile-mode .btn-primary{width:100%;justify-content:center;padding:11px}
+  body.mobile-mode .table-wrap{display:none}
+  body.mobile-mode .mobile-entries{display:block}
+  body.mobile-mode .header-text h1{font-size:1rem}
+  body.mobile-mode input,body.mobile-mode select,body.mobile-mode textarea{font-size:.95rem;padding:10px 12px}
+  @media(max-width:768px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}}
+  @media(max-width:500px){.grid-3,.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-text">
+    <h1>Welspun Tubular LLC — Coating Operations</h1>
+    <p>Shift Discrepancy Log &nbsp;|&nbsp; FBE / Multi-Layer Coating</p>
+  </div>
+  <button class="toggle-btn" onclick="toggleMobile()" id="modeBtn">📱 Phone View</button>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Shift Information</h2>
+    <div class="grid-3">
+      <div><label>Project Name</label><input id="projectName" placeholder="e.g. Gulf Coast Pipeline"/></div>
+      <div><label>Date</label><input id="shiftDate" type="date"/></div>
+      <div><label>Shift</label>
+        <select id="shift">
+          <option value="">— Select Shift —</option>
+          <option value="Day (6AM – 6PM)">Day (6AM – 6PM)</option>
+          <option value="Night (6PM – 6AM)">Night (6PM – 6AM)</option>
+        </select>
+      </div>
+      <div><label>Production Order #</label><input id="poNumber" placeholder="PO-XXXXXX"/></div>
+      <div><label>Pipe Dimension</label><input id="pipeDim" placeholder='e.g. 42" OD x 0.625" WT'/></div>
+      <div><label>Coating Type</label><input id="coatingType" placeholder="e.g. FBE, 3LPE, ARO"/></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Add Discrepancy Entry</h2>
+    <div class="entry-form">
+      <h3>Pipe Details</h3>
+      <div class="grid-4">
+        <div><label>Pipe Number *</label><input id="pipeNum" placeholder="e.g. P-001"/></div>
+        <div><label>Rail Car # <span style="font-weight:400;color:#94a3b8">(if any)</span></label><input id="railCar" placeholder="RC-XXX"/></div>
+        <div><label>TPI # <span style="font-weight:400;color:#94a3b8">(if any)</span></label><input id="tpiNum" placeholder="TPI-XXX"/></div>
+        <div><label>Inspector Name *</label><input id="inspector" placeholder="Full name"/></div>
+        <div class="grid-full"><label>Discrepancy Detail *</label><textarea id="discDetail" placeholder="Describe the discrepancy observed"></textarea></div>
+        <div class="grid-full"><label>Action Taken *</label><textarea id="actionTaken" placeholder="Corrective action performed"></textarea></div>
+        <div class="grid-full"><label>Remarks</label><textarea id="remarks" placeholder="Additional notes, references, hold status, etc."></textarea></div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="addEntry()">＋ Add Entry</button>
+  </div>
+
+  <div class="card">
+    <h2>Discrepancy Log <span class="entry-count" id="entryCount">0</span></h2>
+    <div class="actions-bar">
+      <button class="btn btn-csv" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn btn-copy" onclick="copyText()">📋 Copy as Text</button>
+      <button class="btn btn-outline" onclick="confirmClear()">🗑 New Shift / Clear</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Pipe No.</th><th>Rail Car</th><th>TPI #</th><th>Discrepancy Detail</th><th>Action Taken</th><th>Remarks</th><th>Inspector</th><th></th></tr>
+        </thead>
+        <tbody id="logBody">
+          <tr><td colspan="9"><div class="empty-state">No entries yet. Add the first discrepancy above.</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mobile-entries" id="mobileEntries">
+      <div class="empty-state">No entries yet.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-bg" id="clearModal">
+  <div class="modal">
+    <h3>Start New Shift?</h3>
+    <p>This will clear all log entries and shift information. This cannot be undone.</p>
+    <div class="modal-btns">
+      <button class="btn btn-danger" onclick="clearAll()">Yes, Clear All</button>
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY='welspun_disc_log';
+let entries=[];
+let isMobile=false;
+
+window.addEventListener('load',()=>{
+  if(window.innerWidth<=600) activateMobile();
+  const saved=localStorage.getItem(STORAGE_KEY);
+  if(saved){
+    const d=JSON.parse(saved);
+    document.getElementById('projectName').value=d.header?.projectName||'';
+    document.getElementById('shiftDate').value=d.header?.shiftDate||'';
+    document.getElementById('shift').value=d.header?.shift||'';
+    document.getElementById('poNumber').value=d.header?.poNumber||'';
+    document.getElementById('pipeDim').value=d.header?.pipeDim||'';
+    document.getElementById('coatingType').value=d.header?.coatingType||'';
+    entries=d.entries||[];
+    renderTable();
+  }
+  if(!document.getElementById('shiftDate').value)
+    document.getElementById('shiftDate').value=new Date().toISOString().split('T')[0];
+  ['projectName','shiftDate','shift','poNumber','pipeDim','coatingType'].forEach(id=>{
+    document.getElementById(id).addEventListener('input',saveData);
+    document.getElementById(id).addEventListener('change',saveData);
+  });
+});
+
+function toggleMobile(){isMobile?deactivateMobile():activateMobile();}
+function activateMobile(){isMobile=true;document.body.classList.add('mobile-mode');document.getElementById('modeBtn').textContent='🖥 Desktop View';renderTable();}
+function deactivateMobile(){isMobile=false;document.body.classList.remove('mobile-mode');document.getElementById('modeBtn').textContent='📱 Phone View';renderTable();}
+
+function saveData(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify({
+    header:{projectName:v('projectName'),shiftDate:v('shiftDate'),shift:v('shift'),poNumber:v('poNumber'),pipeDim:v('pipeDim'),coatingType:v('coatingType')},
+    entries
+  }));
+}
+
+function v(id){return document.getElementById(id).value.trim();}
+
+function addEntry(){
+  const pipeNum=v('pipeNum'),discDetail=v('discDetail'),actionTaken=v('actionTaken'),inspector=v('inspector');
+  if(!pipeNum||!discDetail||!actionTaken||!inspector){showToast('⚠️ Fill in required fields: Pipe #, Discrepancy, Action Taken, Inspector.');return;}
+  entries.push({id:Date.now(),pipeNum,railCar:v('railCar'),tpiNum:v('tpiNum'),discDetail,actionTaken,remarks:v('remarks'),inspector});
+  saveData();renderTable();clearForm();showToast('✅ Entry added.');
+}
+
+function clearForm(){
+  ['pipeNum','railCar','tpiNum','discDetail','actionTaken','remarks','inspector'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pipeNum').focus();
+}
+
+function renderTable(){
+  document.getElementById('entryCount').textContent=entries.length;
+  const tbody=document.getElementById('logBody');
+  tbody.innerHTML=entries.length===0
+    ?'<tr><td colspan="9"><div class="empty-state">No entries yet. Add the first discrepancy above.</div></td></tr>'
+    :entries.map((e,i)=>`
+      <tr class="${i%2===1?'alt':''}">
+        <td><strong>${i+1}</strong></td>
+        <td><span class="badge badge-navy">${esc(e.pipeNum)}</span></td>
+        <td>${e.railCar?`<span class="badge badge-teal">${esc(e.railCar)}</span>`:'<span class="badge badge-na">N/A</span>'}</td>
+        <td>${e.tpiNum?`<span class="badge badge-teal">${esc(e.tpiNum)}</span>`:'<span class="badge badge-na">N/A</span>'}</td>
+        <td style="min-width:180px">${esc(e.discDetail)}</td>
+        <td style="min-width:160px">${esc(e.actionTaken)}</td>
+        <td style="min-width:120px">${esc(e.remarks)||'—'}</td>
+        <td>${esc(e.inspector)}</td>
+        <td><button class="del-btn" onclick="deleteEntry(${e.id})">✕</button></td>
+      </tr>`).join('');
+  const mc=document.getElementById('mobileEntries');
+  mc.innerHTML=entries.length===0
+    ?'<div class="empty-state">No entries yet.</div>'
+    :entries.map((e,i)=>`
+      <div class="m-entry-card">
+        <div class="m-pipe">#${i+1} — Pipe: ${esc(e.pipeNum)}</div>
+        ${e.railCar?`<div class="m-row"><span class="m-label">Rail Car:</span><span class="m-val">${esc(e.railCar)}</span></div>`:''}
+        ${e.tpiNum?`<div class="m-row"><span class="m-label">TPI #:</span><span class="m-val">${esc(e.tpiNum)}</span></div>`:''}
+        <div class="m-row"><span class="m-label">Discrepancy:</span><span class="m-val">${esc(e.discDetail)}</span></div>
+        <div class="m-row"><span class="m-label">Action Taken:</span><span class="m-val">${esc(e.actionTaken)}</span></div>
+        ${e.remarks?`<div class="m-row"><span class="m-label">Remarks:</span><span class="m-val">${esc(e.remarks)}</span></div>`:''}
+        <div class="m-row"><span class="m-label">Inspector:</span><span class="m-val">${esc(e.inspector)}</span></div>
+        <button class="m-del-btn" onclick="deleteEntry(${e.id})">✕ Remove</button>
+      </div>`).join('');
+}
+
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function deleteEntry(id){entries=entries.filter(e=>e.id!==id);saveData();renderTable();showToast('Entry removed.');}
+function confirmClear(){document.getElementById('clearModal').classList.add('show');}
+function closeModal(){document.getElementById('clearModal').classList.remove('show');}
+function clearAll(){
+  entries=[];
+  ['projectName','shiftDate','shift','poNumber','pipeDim','coatingType'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('shiftDate').value=new Date().toISOString().split('T')[0];
+  saveData();renderTable();closeModal();showToast('🔄 Cleared. Ready for new shift.');
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+function exportCSV(){
+  const h={projectName:v('projectName')||'—',shiftDate:v('shiftDate')||'—',shift:v('shift')||'—',poNumber:v('poNumber')||'—',pipeDim:v('pipeDim')||'—',coatingType:v('coatingType')||'—'};
+  const q=s=>`"${(s||'').replace(/"/g,'""')}"`;
+  let csv='WELSPUN TUBULAR LLC — COATING OPERATIONS DISCREPANCY LOG\n';
+  csv+=`Project,${q(h.projectName)},Date,${q(h.shiftDate)},Shift,${q(h.shift)}\n`;
+  csv+=`PO #,${q(h.poNumber)},Pipe Dimension,${q(h.pipeDim)},Coating Type,${q(h.coatingType)}\n`;
+  csv+=`Generated,${q(new Date().toLocaleString())}\n\n`;
+  csv+='#,Pipe No.,Rail Car,TPI #,Discrepancy Detail,Action Taken,Remarks,Inspector\n';
+  if(entries.length===0){csv+='No entries recorded.\n';}
+  else entries.forEach((e,i)=>{
+    csv+=`${i+1},${q(e.pipeNum)},${q(e.railCar||'N/A')},${q(e.tpiNum||'N/A')},${q(e.discDetail)},${q(e.actionTaken)},${q(e.remarks||'')},${q(e.inspector)}\n`;
+  });
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`Discrepancy_Log_${h.shiftDate}_${h.shift.split(' ')[0]||'Shift'}.csv`;
+  a.click();URL.revokeObjectURL(url);
+  showToast('📊 CSV exported — opens in Excel!');
+}
+
+function copyText(){
+  const h={projectName:v('projectName')||'—',shiftDate:v('shiftDate')||'—',shift:v('shift')||'—',poNumber:v('poNumber')||'—',pipeDim:v('pipeDim')||'—',coatingType:v('coatingType')||'—'};
+  let txt=`WELSPUN TUBULAR LLC — COATING OPERATIONS DISCREPANCY LOG\n${'='.repeat(60)}\nProject: ${h.projectName} | Date: ${h.shiftDate} | Shift: ${h.shift}\nPO #: ${h.poNumber} | Pipe Dim: ${h.pipeDim} | Coating: ${h.coatingType}\n${'='.repeat(60)}\n\n`;
+  if(!entries.length){txt+='No entries recorded.\n';}
+  else entries.forEach((e,i)=>{
+    txt+=`Entry ${i+1}\n  Pipe #:       ${e.pipeNum}\n  Rail Car:     ${e.railCar||'N/A'}\n  TPI #:        ${e.tpiNum||'N/A'}\n  Discrepancy:  ${e.discDetail}\n  Action Taken: ${e.actionTaken}\n  Remarks:      ${e.remarks||'—'}\n  Inspector:    ${e.inspector}\n${'-'.repeat(40)}\n`;
+  });
+  txt+=`\nGenerated: ${new Date().toLocaleString()}`;
+  navigator.clipboard.writeText(txt).then(()=>showToast('📋 Copied to clipboard!')).catch(()=>showToast('⚠️ Copy failed — try manually.'));
+}
+</script>
+</body>
+</html>
