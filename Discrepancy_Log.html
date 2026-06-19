@@ -113,6 +113,7 @@
       <h3>Pipe Details</h3>
       <div class="grid-4">
         <div><label>Pipe Number *</label><input id="pipeNum" placeholder="e.g. P-001"/></div>
+        <div><label>Checksum</label><input id="checksum" placeholder="e.g. 72654"/></div>
         <div><label>Rail Car # <span style="font-weight:400;color:#94a3b8">(if any)</span></label><input id="railCar" placeholder="RC-XXX"/></div>
         <div><label>TPI # <span style="font-weight:400;color:#94a3b8">(if any)</span></label><input id="tpiNum" placeholder="TPI-XXX"/></div>
         <div><label>Inspector Name *</label><input id="inspector" placeholder="Full name"/></div>
@@ -134,10 +135,10 @@
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>#</th><th>Pipe No.</th><th>Rail Car</th><th>TPI #</th><th>Discrepancy Detail</th><th>Action Taken</th><th>Remarks</th><th>Inspector</th><th></th></tr>
+          <tr><th>#</th><th>Pipe No.</th><th>Checksum</th><th>Rail Car</th><th>TPI #</th><th>Discrepancy Detail</th><th>Action Taken</th><th>Remarks</th><th>Inspector</th><th></th></tr>
         </thead>
         <tbody id="logBody">
-          <tr><td colspan="9"><div class="empty-state">No entries yet. Add the first discrepancy above.</div></td></tr>
+          <tr><td colspan="10"><div class="empty-state">No entries yet. Add the first discrepancy above.</div></td></tr>
         </tbody>
       </table>
     </div>
@@ -204,12 +205,12 @@ function v(id){return document.getElementById(id).value.trim();}
 function addEntry(){
   const pipeNum=v('pipeNum'),discDetail=v('discDetail'),actionTaken=v('actionTaken'),inspector=v('inspector');
   if(!pipeNum||!discDetail||!actionTaken||!inspector){showToast('⚠️ Fill in required fields: Pipe #, Discrepancy, Action Taken, Inspector.');return;}
-  entries.push({id:Date.now(),pipeNum,railCar:v('railCar'),tpiNum:v('tpiNum'),discDetail,actionTaken,remarks:v('remarks'),inspector});
+  entries.push({id:Date.now(),pipeNum,checksum:v('checksum'),railCar:v('railCar'),tpiNum:v('tpiNum'),discDetail,actionTaken,remarks:v('remarks'),inspector});
   saveData();renderTable();clearForm();showToast('✅ Entry added.');
 }
 
 function clearForm(){
-  ['pipeNum','railCar','tpiNum','discDetail','actionTaken','remarks','inspector'].forEach(id=>document.getElementById(id).value='');
+  ['pipeNum','checksum','railCar','tpiNum','discDetail','actionTaken','remarks','inspector'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('pipeNum').focus();
 }
 
@@ -217,11 +218,12 @@ function renderTable(){
   document.getElementById('entryCount').textContent=entries.length;
   const tbody=document.getElementById('logBody');
   tbody.innerHTML=entries.length===0
-    ?'<tr><td colspan="9"><div class="empty-state">No entries yet. Add the first discrepancy above.</div></td></tr>'
+    ?'<tr><td colspan="10"><div class="empty-state">No entries yet. Add the first discrepancy above.</div></td></tr>'
     :entries.map((e,i)=>`
       <tr class="${i%2===1?'alt':''}">
         <td><strong>${i+1}</strong></td>
         <td><span class="badge badge-navy">${esc(e.pipeNum)}</span></td>
+        <td>${e.checksum?`<span class="badge badge-teal">${esc(e.checksum)}</span>`:'<span class="badge badge-na">—</span>'}</td>
         <td>${e.railCar?`<span class="badge badge-teal">${esc(e.railCar)}</span>`:'<span class="badge badge-na">N/A</span>'}</td>
         <td>${e.tpiNum?`<span class="badge badge-teal">${esc(e.tpiNum)}</span>`:'<span class="badge badge-na">N/A</span>'}</td>
         <td style="min-width:180px">${esc(e.discDetail)}</td>
@@ -236,6 +238,7 @@ function renderTable(){
     :entries.map((e,i)=>`
       <div class="m-entry-card">
         <div class="m-pipe">#${i+1} — Pipe: ${esc(e.pipeNum)}</div>
+        ${e.checksum?`<div class="m-row"><span class="m-label">Checksum:</span><span class="m-val">${esc(e.checksum)}</span></div>`:''}
         ${e.railCar?`<div class="m-row"><span class="m-label">Rail Car:</span><span class="m-val">${esc(e.railCar)}</span></div>`:''}
         ${e.tpiNum?`<div class="m-row"><span class="m-label">TPI #:</span><span class="m-val">${esc(e.tpiNum)}</span></div>`:''}
         <div class="m-row"><span class="m-label">Discrepancy:</span><span class="m-val">${esc(e.discDetail)}</span></div>
@@ -269,10 +272,10 @@ function exportCSV(){
   csv+=`Project,${q(h.projectName)},Date,${q(h.shiftDate)},Shift,${q(h.shift)}\n`;
   csv+=`PO #,${q(h.poNumber)},Pipe Dimension,${q(h.pipeDim)},Coating Type,${q(h.coatingType)}\n`;
   csv+=`Generated,${q(new Date().toLocaleString())}\n\n`;
-  csv+='#,Pipe No.,Rail Car,TPI #,Discrepancy Detail,Action Taken,Remarks,Inspector\n';
+  csv+='#,Pipe No.,Checksum,Rail Car,TPI #,Discrepancy Detail,Action Taken,Remarks,Inspector\n';
   if(entries.length===0){csv+='No entries recorded.\n';}
   else entries.forEach((e,i)=>{
-    csv+=`${i+1},${q(e.pipeNum)},${q(e.railCar||'N/A')},${q(e.tpiNum||'N/A')},${q(e.discDetail)},${q(e.actionTaken)},${q(e.remarks||'')},${q(e.inspector)}\n`;
+    csv+=`${i+1},${q(e.pipeNum)},${q(e.checksum||'')},${q(e.railCar||'N/A')},${q(e.tpiNum||'N/A')},${q(e.discDetail)},${q(e.actionTaken)},${q(e.remarks||'')},${q(e.inspector)}\n`;
   });
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
@@ -287,7 +290,7 @@ function copyText(){
   let txt=`WELSPUN TUBULAR LLC — COATING OPERATIONS DISCREPANCY LOG\n${'='.repeat(60)}\nProject: ${h.projectName} | Date: ${h.shiftDate} | Shift: ${h.shift}\nPO #: ${h.poNumber} | Pipe Dim: ${h.pipeDim} | Coating: ${h.coatingType}\n${'='.repeat(60)}\n\n`;
   if(!entries.length){txt+='No entries recorded.\n';}
   else entries.forEach((e,i)=>{
-    txt+=`Entry ${i+1}\n  Pipe #:       ${e.pipeNum}\n  Rail Car:     ${e.railCar||'N/A'}\n  TPI #:        ${e.tpiNum||'N/A'}\n  Discrepancy:  ${e.discDetail}\n  Action Taken: ${e.actionTaken}\n  Remarks:      ${e.remarks||'—'}\n  Inspector:    ${e.inspector}\n${'-'.repeat(40)}\n`;
+    txt+=`Entry ${i+1}\n  Pipe #:       ${e.pipeNum}\n  Checksum:     ${e.checksum||'—'}\n  Rail Car:     ${e.railCar||'N/A'}\n  TPI #:        ${e.tpiNum||'N/A'}\n  Discrepancy:  ${e.discDetail}\n  Action Taken: ${e.actionTaken}\n  Remarks:      ${e.remarks||'—'}\n  Inspector:    ${e.inspector}\n${'-'.repeat(40)}\n`;
   });
   txt+=`\nGenerated: ${new Date().toLocaleString()}`;
   navigator.clipboard.writeText(txt).then(()=>showToast('📋 Copied to clipboard!')).catch(()=>showToast('⚠️ Copy failed — try manually.'));
