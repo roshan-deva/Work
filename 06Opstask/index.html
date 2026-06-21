@@ -21,7 +21,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(14,14,14,0.97);border-botto
 .npill{margin-left:auto;background:var(--acc);color:#000;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;padding:3px 10px;border-radius:2px;white-space:nowrap;}
 main{padding:12px 12px 130px;max-width:520px;margin:0 auto;}
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
-.stat{background:var(--card);border:1px solid var(--bdr);border-radius:5px;padding:10px 8px;text-align:center;}
+.stat{background:var(--card);border:1px solid var(--bdr);border-radius:5px;padding:12px 8px;text-align:center;}
 .sn{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:1.7rem;line-height:1;margin-bottom:2px;}
 .sy{color:var(--acc);}.sg{color:var(--grn);}.so{color:var(--org);}
 .sl{font-family:"Barlow Condensed",sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
@@ -29,7 +29,7 @@ main{padding:12px 12px 130px;max-width:520px;margin:0 auto;}
 .tab{flex:1;padding:11px 4px;background:var(--card);border:none;border-right:1px solid var(--bdr);color:var(--dim);font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
 .tab:last-child{border-right:none;}
 .tab.on{background:var(--adim);color:var(--acc);}
-.panel{background:var(--card);border:1px solid var(--bdr);border-radius:6px;padding:14px;margin-bottom:12px;}
+.panel{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:14px;margin-bottom:12px;}
 .plbl{font-family:"Barlow Condensed",sans-serif;font-size:.67rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
 .arow{display:flex;gap:8px;margin-bottom:10px;}
 .ainp{flex:1;background:var(--surf);border:1px solid var(--bdr);border-radius:4px;color:var(--txt);font-family:Barlow,sans-serif;font-size:1rem;padding:12px 13px;outline:none;-webkit-appearance:none;}
@@ -48,7 +48,7 @@ main{padding:12px 12px 130px;max-width:520px;margin:0 auto;}
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .sht{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);}
 .shc{font-family:"DM Mono",monospace;font-size:.67rem;color:var(--dim);}
-.tc{background:var(--card);border:1px solid var(--bdr);border-left:3px solid var(--bdr);border-radius:5px;padding:12px 13px;margin-bottom:8px;display:flex;gap:11px;align-items:flex-start;position:relative;}
+.tc{background:var(--card);border:1px solid var(--bdr);border-left:3px solid var(--bdr);border-radius:5px;padding:14px 13px;margin-bottom:8px;display:flex;gap:11px;align-items:flex-start;position:relative;box-shadow:0 2px 8px rgba(232,255,60,0.04);}
 .tc.u{border-left-color:var(--red);}
 .tc.h{border-left-color:var(--org);}
 .tc.g{border-left-color:var(--blu);}
@@ -57,7 +57,7 @@ main{padding:12px 12px 130px;max-width:520px;margin:0 auto;}
 .chk{width:20px;height:20px;border:1.5px solid var(--bdr);border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent;}
 .dk .chk{background:var(--grn);border-color:var(--grn);}
 .tb{flex:1;min-width:0;}
-.tt{font-size:.93rem;font-weight:500;line-height:1.4;margin-bottom:5px;word-break:break-word;}
+.tt{font-size:1rem;font-weight:500;line-height:1.4;margin-bottom:5px;word-break:break-word;}
 .tgs{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
 .tag{font-family:"Barlow Condensed",sans-serif;font-size:.63rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:2px;border:1px solid;}
 .ts{color:#9b8fff;border-color:rgba(155,143,255,.3);background:rgba(155,143,255,.07);}
@@ -73,11 +73,12 @@ main{padding:12px 12px 130px;max-width:520px;margin:0 auto;}
 .dline{flex:1;height:1px;background:var(--bdr);}
 .dlbl{font-family:"Barlow Condensed",sans-serif;font-size:.67rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);white-space:nowrap;}
 .dtog{font-size:.62rem;color:var(--dim);}
-.ebar{position:fixed;bottom:0;left:0;right:0;background:rgba(14,14,14,.97);border-top:1px solid var(--bdr);padding:10px 12px;display:flex;gap:7px;z-index:99;}
+.ebar{position:fixed;bottom:0;left:0;right:0;background:rgba(14,14,14,.97);border-top:1px solid var(--bdr);padding:14px 12px;display:flex;gap:7px;z-index:99;}
 .eb{flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:4px;color:var(--dim);font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:11px 4px;cursor:pointer;text-align:center;-webkit-appearance:none;}
 .eb.p{background:var(--adim);border-color:var(--acc);color:var(--acc);}
 .toast{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);background:var(--grn);color:#000;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;padding:9px 18px;border-radius:4px;z-index:200;white-space:nowrap;pointer-events:none;display:none;}
 .toast.on{display:block;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:250px 250px;}
 </style>
 </head>
 <body>
@@ -119,9 +120,11 @@ main{padding:12px 12px 130px;max-width:520px;margin:0 auto;}
         </button>
       </div>
       <div class="meta">
-        <select class="msel" id="src">
-          <option>Self</option><option>Verbal</option><option>Scott</option>
-          <option>Mike</option><option>Sarados</option><option>Email/Teams</option><option>Shift Log</option>
+        <select class="msel" id="src" onchange="chkAddPerson(this)">
+          <option>Self</option><option>Verbal</option><option>Meeting</option>
+          <option>Email/Teams</option><option>Shift Log</option>
+          <option disabled>──────</option>
+          <option value="__add__">+ Add Person…</option>
         </select>
         <select class="msel" id="pri">
           <option value="normal">Normal</option>
@@ -135,13 +138,10 @@ main{padding:12px 12px 130px;max-width:520px;margin:0 auto;}
 
   <div id="pS" style="display:none">
     <div class="panel">
-      <div class="plbl">Granola Sync</div>
-      <div class="snote">
-        <strong>How to sync:</strong><br>
-        Ask me in Claude chat:<br>
-        <em>"Pull my Granola action items"</em><br><br>
-        I'll extract tasks from your meeting notes and add them to this list automatically.
-      </div>
+      <div class="plbl">Paste from Claude</div>
+      <div class="snote" style="margin-bottom:10px;">Ask Claude: <em>"Pull action items from my Granola notes"</em> — then paste the list below.</div>
+      <textarea class="ainp" id="gp" rows="6" style="width:100%;resize:vertical;min-height:120px;margin-bottom:10px;" placeholder="- Follow up with Scott on valve order&#10;- Check shift log for overnight issues&#10;- Schedule weekly ops review..."></textarea>
+      <button class="abtn" onclick="importGranola()">Import Tasks from Paste</button>
     </div>
   </div>
 
@@ -265,6 +265,62 @@ function card(t){
   return '<div class="tc '+bc+' '+dk2+'" data-id="'+t.id+'"><div class="chk" data-act="done">'+chk+'</div><div class="tb"><div class="tt">'+esc(t.text)+'</div><div class="tgs">'+stag+ptag+'<span class="tm">'+ft(t.ts)+'</span></div></div><button class="dbtn" data-act="del">&#x2715;</button></div>';
 }
 
+var PEOPLE_KEY='wtslops_people';
+var customPeople=JSON.parse(localStorage.getItem(PEOPLE_KEY)||'[]');
+
+function buildSrcOptions(){
+  var sel=document.getElementById('src');
+  var cur=sel.value;
+  var base=['Self','Verbal','Meeting','Email/Teams','Shift Log'];
+  while(sel.firstChild) sel.removeChild(sel.firstChild);
+  base.concat(customPeople).forEach(function(p){
+    var o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o);
+  });
+  var sep=document.createElement('option'); sep.disabled=true; sep.textContent='──────'; sel.appendChild(sep);
+  var add=document.createElement('option'); add.value='__add__'; add.textContent='+ Add Person…'; sel.appendChild(add);
+  var rm=document.createElement('option'); rm.value='__rm__'; rm.textContent='− Remove Person…'; sel.appendChild(rm);
+  if(cur&&cur!=='__add__'&&cur!=='__rm__') sel.value=cur;
+  else sel.value='Self';
+}
+
+function chkAddPerson(sel){
+  if(sel.value==='__add__'){
+    var name=(prompt('Name to add:')||'').trim();
+    if(name&&!customPeople.includes(name)){
+      customPeople.push(name);
+      localStorage.setItem(PEOPLE_KEY,JSON.stringify(customPeople));
+    }
+    buildSrcOptions();
+    if(name) document.getElementById('src').value=name;
+  } else if(sel.value==='__rm__'){
+    if(!customPeople.length){alert('No custom people to remove.');buildSrcOptions();return;}
+    var list=customPeople.map(function(p,i){return (i+1)+'. '+p;}).join('\n');
+    var idx=parseInt(prompt('Remove which? (enter number)\n'+list),10)-1;
+    if(idx>=0&&idx<customPeople.length){
+      customPeople.splice(idx,1);
+      localStorage.setItem(PEOPLE_KEY,JSON.stringify(customPeople));
+    }
+    buildSrcOptions();
+  }
+}
+
+function importGranola(){
+  var raw=document.getElementById('gp').value.trim();
+  if(!raw){toast('Nothing to import');return;}
+  var lines=raw.split('\n').map(function(l){
+    return l.replace(/^[\s\-\*\•\·]+/,'').replace(/^\[.?\]\s*/,'').replace(/^\d+[\.\)]\s*/,'').trim();
+  }).filter(function(l){return l.length>2;});
+  if(!lines.length){toast('No tasks found');return;}
+  var now=Date.now();
+  lines.forEach(function(txt,i){
+    T.unshift({id:''+(now+i),text:txt,source:'Granola',priority:'normal',done:false,date:dk(),ts:now+i});
+  });
+  sv(); render();
+  document.getElementById('gp').value='';
+  swTab('a');
+  toast(lines.length+' task'+(lines.length>1?'s':'')+' imported');
+}
+
 function doVoice(){
   var btn=document.getElementById('vb');
   if(!SR){
@@ -349,6 +405,7 @@ function dl2(name,content,type){
 
 document.getElementById('nd').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}).toUpperCase();
 document.getElementById('ti').addEventListener('keydown',function(e){if(e.key==='Enter') addTask();});
+buildSrcOptions();
 render();
 
 document.addEventListener('click',function(e){
