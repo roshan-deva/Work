@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" fill="#0e0e0e"/>
-  <rect x="12" y="12" width="168" height="168" rx="28" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="2"/>
-  <text x="96" y="108" font-family="Arial Black,sans-serif" font-size="60" font-weight="900" fill="#e8ff3c" text-anchor="middle">OPS</text>
-  <text x="96" y="148" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#666" text-anchor="middle">LOG</text>
-</svg>
