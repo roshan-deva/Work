@@ -1,10 +1,15 @@
 {
-  "name": "WTSL Ops Log",
-  "short_name": "Ops Log",
-  "description": "Operations task logger for Welspun Tubular Little Rock",
+  "name": "Roshan's Impact Tracker",
+  "short_name": "RIT",
+  "description": "Personal ops task capture and impact tracker for Welspun Tubular Little Rock",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0e0e0e",
   "theme_color": "#0e0e0e",
-  "orientation": "portrait-primary"
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
 }
