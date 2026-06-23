@@ -102,6 +102,12 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 20px;}
 .st.on{color:var(--acc);border-bottom-color:var(--acc);}
 .st-cnt{font-size:9px;background:rgba(255,255,255,.07);color:var(--muted);padding:1px 5px;border-radius:3px;margin-left:3px;}
 .st.on .st-cnt{background:var(--adim);color:var(--acc);}
+.src-tabs{display:flex;border-bottom:1px solid var(--bdr);overflow-x:auto;background:rgba(255,255,255,.02);}
+.src-tabs::-webkit-scrollbar{display:none;}
+.sc{flex-shrink:0;font-size:9px;font-weight:700;padding:4px 10px;color:var(--muted);border-bottom:2px solid transparent;letter-spacing:.3px;text-transform:uppercase;cursor:pointer;}
+.sc.on{color:var(--blu);border-bottom-color:var(--blu);}
+.sc-cnt{font-size:9px;background:rgba(255,255,255,.07);color:var(--muted);padding:1px 5px;border-radius:3px;margin-left:3px;}
+.sc.on .sc-cnt{background:var(--bludim);color:var(--blu);}
 
 /* ── TASK TABLE ── */
 .task-table-hdr{display:flex;align-items:center;padding:6px 0;background:var(--surf);border-radius:4px 4px 0 0;margin-top:0;}
@@ -263,6 +269,13 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 20px;}
       <div class="st" data-sf="done" onclick="setSF(this,'done')">Done <span class="st-cnt" id="stDone">0</span></div>
     </div>
 
+    <!-- Source chips -->
+    <div class="src-tabs">
+      <div class="sc on" onclick="setSrcF(this,'all')">All <span class="sc-cnt" id="scAll">0</span></div>
+      <div class="sc" onclick="setSrcF(this,'Granola')">🌿 Granola <span class="sc-cnt" id="scGranola">0</span></div>
+      <div class="sc" onclick="setSrcF(this,'Notion AI')">📝 Notion AI <span class="sc-cnt" id="scNotionAI">0</span></div>
+    </div>
+
     <!-- Task table header -->
     <div class="task-table-hdr">
       <div class="th col-chk"></div>
@@ -308,6 +321,10 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 20px;}
       <div class="plbl">Paste from Claude</div>
       <div class="snote">Ask Claude: <em>"Pull action items from my Granola notes"</em> — then paste the list below.</div>
       <textarea class="ainp" id="gp" rows="6" style="width:100%;resize:vertical;min-height:120px;margin-bottom:10px;" placeholder="- Follow up with Scott on valve order&#10;- Check shift log for overnight issues&#10;- Schedule weekly ops review..."></textarea>
+      <select id="impSrc" style="width:100%;margin-bottom:10px;background:var(--surf);color:var(--txt);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;font-family:Barlow,sans-serif;font-size:13px;">
+        <option value="Granola">🌿 Granola</option>
+        <option value="Notion AI">📝 Notion AI</option>
+      </select>
       <button class="abtn" onclick="importGranola()">Import Tasks from Paste</button>
     </div>
   </div>
@@ -402,7 +419,7 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 20px;}
 
 <script>
 var T = JSON.parse(localStorage.getItem('wtslops')||'[]');
-var showDone=false, filt='all', activeTab='tasks', activePeriod='week', SR=null, isRec=false;
+var showDone=false, filt='all', srcFilt='all', activeTab='tasks', activePeriod='week', SR=null, isRec=false;
 var searchQ='';
 var NOTION_KEY='wtslops_notion';
 var barChartInst=null, donutChartInst=null;
@@ -473,6 +490,14 @@ function setSF(el,sf){
   var sts=document.querySelectorAll('.st');
   for(var i=0;i<sts.length;i++) sts[i].className='st';
   el.className='st on';
+  render();
+}
+
+function setSrcF(el,sf){
+  srcFilt=sf;
+  var scs=document.querySelectorAll('.sc');
+  for(var i=0;i<scs.length;i++) scs[i].className='sc';
+  el.className='sc on';
   render();
 }
 
@@ -648,11 +673,19 @@ function render(){
   else if(filt==='notion')  visible=visible.filter(function(t){return t.synced&&!t.done;});
   else if(filt==='done')    visible=visible.filter(function(t){return t.done;});
 
+  // Source chip filter
+  if(srcFilt!=='all') visible=visible.filter(function(t){return t.source===srcFilt;});
+
   // Status tab counts (from unfiltered, unsearched T)
   document.getElementById('stAll').textContent=T.length;
   document.getElementById('stPend').textContent=T.filter(function(t){return !t.done&&!t.synced;}).length;
   document.getElementById('stNotion').textContent=T.filter(function(t){return t.synced&&!t.done;}).length;
   document.getElementById('stDone').textContent=T.filter(function(t){return t.done;}).length;
+
+  // Source chip counts
+  document.getElementById('scAll').textContent=T.length;
+  document.getElementById('scGranola').textContent=T.filter(function(t){return t.source==='Granola';}).length;
+  document.getElementById('scNotionAI').textContent=T.filter(function(t){return t.source==='Notion AI';}).length;
 
   // Sort: overdue → due this week → due later → no due → done/synced
   visible.sort(function(a,b){return dueSortKey(a)-dueSortKey(b);});
@@ -717,7 +750,7 @@ function importGranola(){
   if(!lines.length){toast('No tasks found');return;}
   var now=Date.now();
   lines.forEach(function(txt,i){
-    T.unshift({id:''+(now+i),text:txt,source:'Granola',dueDate:null,done:false,synced:false,notionId:null,date:dk(),ts:now+i});
+    T.unshift({id:''+(now+i),text:txt,source:document.getElementById('impSrc').value,dueDate:null,done:false,synced:false,notionId:null,date:dk(),ts:now+i});
   });
   sv(); render();
   document.getElementById('gp').value='';
