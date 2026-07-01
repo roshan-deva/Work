@@ -118,7 +118,14 @@
         <div><label>TPI # <span style="font-weight:400;color:#94a3b8">(if any)</span></label><input id="tpiNum" placeholder="TPI-XXX"/></div>
         <div><label>Inspector Name *</label><input id="inspector" placeholder="Full name"/></div>
         <div class="grid-full"><label>Discrepancy Detail *</label><textarea id="discDetail" placeholder="Describe the discrepancy observed"></textarea></div>
-        <div class="grid-full"><label>Action Taken *</label><textarea id="actionTaken" placeholder="Corrective action performed"></textarea></div>
+        <div class="grid-full"><label>Action Taken *</label>
+          <select id="actionTaken">
+            <option value="">— Select Action —</option>
+            <option value="Loaded to Railcar">Loaded to Railcar</option>
+            <option value="Sent to Yard Skid">Sent to Yard Skid</option>
+            <option value="Held at South Loadout skid">Held at South Loadout skid</option>
+          </select>
+        </div>
         <div class="grid-full"><label>Remarks</label><textarea id="remarks" placeholder="Additional notes, references, hold status, etc."></textarea></div>
       </div>
     </div>
