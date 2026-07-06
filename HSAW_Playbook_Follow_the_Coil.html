@@ -540,7 +540,7 @@ document.querySelectorAll('.opts').forEach(function(grid){
     if(Math.abs(OD - 42) < 0.5){
       roH.textContent = '🎯 42"'; roHL.textContent = 'MSX spec hit!'; roHW.classList.add('hit');
     } else {
-      roH.textContent = '00A0'; roHL.textContent = ''; roHW.classList.remove('hit');
+      roH.textContent = ' '; roHL.textContent = ''; roHW.classList.remove('hit');
     }
     // redraw helix: spacing scales inversely with angle
     var pitch = 40 + (75 - th) * 4;
