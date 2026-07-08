@@ -218,7 +218,7 @@ window.addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
           <li><b>Chemistry verification</b> — mill runs its own check analysis on samples per lot, plus a control tensile test cross-checked against the supplier's numbers; nobody blindly trusts the cert.</li>
           <li><b>Storage discipline</b> — coils stored off the ground, ends protected. Rust forming on strip edges now becomes <i>weld porosity</i> weeks later (a case you already know from the Friday meetings).</li>
         </ul>
-        <div class="note"><b>Mill reality check (CCX, through 6/28):</b> ~2,400 coils received, 425 consumed, 3 rejected (~110 MT). Rejection at the gate is rare — steel mills are good — but the 3 that die here would have cost far more if caught later, as scrapped pipe.</div>
+        <div class="note"><b>Mill reality check (CCX):</b> ~2,400 coils received. 6/28 → 425 consumed, 3 rejected (~110 MT). 7/05 → 555 consumed, <b>7</b> rejected (~260 MT). Rejection at the gate is rare — steel mills are good — but the coils that die here would have cost far more if caught later, as scrapped pipe.</div>
       </div>
 
       <div class="lvl" data-scene="1" data-lvl="eng">
@@ -250,10 +250,10 @@ window.addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
       </div>
 
       <div class="case">
-        <h3>Case #01 — Three Dead Coils</h3>
-        <div class="src">Source: CCX KPI deck, Project Status, 6/28/2026</div>
-        <p><b>The facts:</b> ~2,400 coils received. 3 rejected — ~110 MT of steel refused at or before the line. Meanwhile 11 more pipes died later as "Rejection – Material" (~330 ft), and material-defect <i>cutoffs</i> (offset, gouge, peel-off, scab, pitting) trimmed another ~1,100 ft off otherwise good pipes.</p>
-        <p><b>The lesson:</b> material problems rarely announce themselves at the gate. Most sneak through incoming inspection — they're inside the coil, invisible until the strip unrolls at speed. That's why the mill's quality system has <i>layered</i> gates instead of one perfect gate.</p>
+        <h3>Case #01 — Three Dead Coils (Now Seven)</h3>
+        <div class="src">Source: CCX KPI deck, Project Status, 6/28/2026 → 7/05/2026</div>
+        <p><b>The facts:</b> ~2,400 coils received throughout. Rejected-at-gate rose <b>3 → 7</b> (~110 → ~260 MT) between the two decks. Meanwhile the same 11 pipes remained "Rejection – Material" (~330 ft) both weeks — no new material-rejected <i>pipes</i> in week 3, but material-defect <i>cutoffs</i> (offset, gouge, peel-off, scab, pitting) grew ~1,100 → ~1,300 ft as more coils were consumed.</p>
+        <p><b>The lesson:</b> material problems rarely announce themselves at the gate. Most sneak through incoming inspection — they're inside the coil, invisible until the strip unrolls at speed. That's why the mill's quality system has <i>layered</i> gates instead of one perfect gate. And watch the trend, not the snapshot: gate rejections more than doubling week-over-week is worth a question to the receiving team even though the rate is still tiny in absolute terms.</p>
         <div class="verdict-line"><b>Detective's note:</b> when a defect appears mid-production, first question is always the same — <i>material or process?</i> Who pays and what gets fixed both hang on that answer. Scene 3's case shows the mill winning that argument with data.</div>
       </div>
 
@@ -468,8 +468,8 @@ window.addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
 
       <div class="case">
         <h3>Case #03 — First, Third, and Last</h3>
-        <div class="src">Source: CCX meeting notes + KPI deck (Other Cutoff, Material Cutoff)</div>
-        <p><b>The facts:</b> Offset is the single biggest non-weld killer on CCX — ~320 ft of "Other" cutoff (~0.27%) <i>plus</i> ~620 ft of material cutoff (~0.54%), plus 9 whole pipes rejected for offset (6 material, 3 process). Concentrated at coil-end pipes; localized flatness named as cause; CAR filed with the steel supplier.</p>
+        <div class="src">Source: CCX meeting notes + KPI deck (Other Cutoff, Material Cutoff), 6/28 → 7/05/2026</div>
+        <p><b>The facts:</b> Offset is still the single biggest non-weld killer on CCX — cumulative "Other" cutoff ~320 → ~350 ft, material cutoff ~620 → ~660 ft — but the <i>weekly</i> table shows the CAR working: Other-cutoff offset fell ~135 ft → ~30 ft week-over-week, a ~78% drop in the most recent week alone. Offset-rejected pipes held flat at 9 (6 material, 3 process) — no new whole-pipe losses since the CAR was filed.</p>
         <p><b>Why quality cares:</b> offset means the two strip edges meet with a step. The weld bridges the step, but the joint carries a built-in stress concentration — under pipeline pressure cycling, stress raisers are where fatigue cracks start. Specs cap offset (radial misalignment) hard for exactly this reason; trimming it off is cheaper than arguing with physics.</p>
         <div class="verdict-line"><b>Detective's note:</b> notice the mill separates "Rejection–Process ~0.5%" from "Rejection–Material ~0.7%" in the status table. That split isn't bookkeeping — it's the accountability ledger. Material defects → supplier's problem (CAR, cost recovery). Process defects → mill's problem (fix your own line). Learn to ask "whose column does this land in?" and you'll sound like you've done this for years.</div>
       </div>
@@ -569,10 +569,10 @@ window.addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
 
       <div class="case">
         <h3>Case #04 — The Length Ledger</h3>
-        <div class="src">Source: CCX KPI deck, Project Status table, 6/28/2026</div>
-        <p><b>The facts:</b> order quantity ~860,000 ft. Expected total from current performance: ~695,000 ft — a tracked shortfall of ~160,000 ft that decides how many more coils must be bought. Average pipe length ~73 ft against a 72 ft norm. Cutoffs so far: weld ~740 ft, material ~1,100 ft, other ~420 ft.</p>
+        <div class="src">Source: CCX KPI deck, Project Status table, 6/28/2026 → 7/05/2026</div>
+        <p><b>The facts:</b> order quantity steady at ~860,000 ft. Expected total from current performance: ~695,000 → ~696,000 ft — shortfall barely moved (~160,000 ft both weeks) even though pipes formed jumped ~1,700 → ~2,200 and TPI'd length climbed ~116,000 → ~153,000 ft, because the shortfall projection re-bases on the latest run-rate each week. Average pipe length held above norm: ~73 ft vs 72 ft both weeks. Cumulative cutoffs grew in step with volume: weld ~740 → ~900 ft, material ~1,100 → ~1,300 ft, other ~420 → ~460 ft.</p>
         <p><b>The lesson:</b> cutoff KPIs are measured in <i>feet</i>, not pipes, because the entire commercial ledger is in feet. A defect near a pipe end costs inches; a defect mid-body can force a short pipe or an 80'→40'+40' split. Where the defect sits matters as much as what it is.</p>
-        <div class="verdict-line"><b>Detective's note:</b> watch the average-length trend line week to week. A falling average with steady cutoff percentages means defects are landing mid-pipe — different problem, same table.</div>
+        <div class="verdict-line"><b>Detective's note:</b> watch the average-length trend line week to week — it held steady here, which is the boring, good outcome. But also watch for a metric that quietly changes <i>definition</i> between decks: the later deck dropped Yield% and First-Time-Right% as tracked-vs-target rows entirely, replacing them with a single "Rework %" figure that isn't on a comparable basis — treat a scale jump like that as a question for the mill team, not an improvement to celebrate.</div>
       </div>
 
     </div>
@@ -687,8 +687,8 @@ window.addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
 
       <div class="case">
         <h3>Case #05 — The Porosity File Closes</h3>
-        <div class="src">Source: CCX KPI deck (Weld Cutoff) + weekly meeting notes, 7/01/2026</div>
-        <p><b>The facts:</b> weld cutoff ~0.64% total, porosity the biggest line at ~0.23% (~270 ft). Root cause: rust from steel falling into the groove near pipe ends + the ~0.4 s tab-weld initiation window. Fix: cleaning and monitoring. Result: porosity ~0.29% → ~0.17% week-over-week — a 40% drop in the weekly table.</p>
+        <div class="src">Source: CCX KPI deck (Weld Cutoff) + weekly meeting notes, 6/28 → 7/05/2026</div>
+        <p><b>The facts:</b> weld cutoff still porosity-led — cumulative ~0.64% → ~0.59%, porosity itself ~270 → ~310 ft (cumulative feet keep rising with volume, but the <i>rate</i> keeps falling: ~0.23% → ~0.20%). The weekly table now has a third data point: porosity ~0.29% → ~0.17% → <b>~0.11%</b> across three straight weeks. Root cause: rust from steel falling into the groove near pipe ends + the ~0.4 s tab-weld initiation window. Fix: cleaning and monitoring.</p>
         <p><b>The system angle:</b> the flux recovery loop already has a magnetic drum built in to pull rust and scale out of recycled flux — the machine designers knew this enemy decades ago. The CCX problem entered through a different door (debris in the groove itself), which is why the fix is housekeeping, not hardware.</p>
         <div class="verdict-line"><b>Detective's note:</b> a fix is proven by the trend, not the promise. And mind the denominators — weekly cutoff percentages divide by <i>that week's</i> TPI footage, cumulative ones by all of it. Comparing the two directly is how numbers lie politely.</div>
       </div>
@@ -803,8 +803,8 @@ window.addEventListener('pageshow', function(){ window.scrollTo(0, 0); });
 
       <div class="case">
         <h3>Case #06 — The Zero That Looked Wrong</h3>
-        <div class="src">Source: CCX KPI deck, Weld Cutoff table, 6/28/2026</div>
-        <p><b>The facts:</b> "UT Indication: 0.00 ft" sits in the same table as porosity ~270 ft, off-seam ~155 ft, burn-through ~90 ft. No UT-driven cutoffs at all — while X-ray-visible defects dominate the list.</p>
+        <div class="src">Source: CCX KPI deck, Weld Cutoff table, 6/28/2026 → still 0.00% as of 7/05/2026</div>
+        <p><b>The facts:</b> "UT Indication: 0.00 ft" sits in the same table as porosity, off-seam, burn-through — all still X-ray-owned, volumetric-flavored defects. A full week later, with ~900 ft of cumulative weld cutoff logged, the UT Indication row is still exactly 0.00%. That's not a fluke reading — it's the same layer boundary holding steady, which is what should make you trust it.</p>
         <p><b>The lesson:</b> the cutoff table is not one inspector's scorecard — it's the merged output of the whole layered system, and each defect type has an owning layer. UT owns cracks and fusion-line defects (all at zero — genuinely good news). Radiography owns pores and slag. End zones belong to manual UT, phased array, and the 8-inch end X-ray.</p>
         <div class="verdict-line"><b>Detective's note:</b> your standing rule — "probe numbers that look too good" — needs one refinement: first ask <i>which layer owns this number</i>. Zero where the owner is looking = suspicious. Zero where a non-owner is looking = the system doing its job.</div>
       </div>
