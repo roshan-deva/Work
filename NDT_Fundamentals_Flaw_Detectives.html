@@ -394,6 +394,38 @@ table.sketch-table tbody tr:nth-child(even){background:#fbfaf5;}
     </div>
   </details>
 
+  <h3 class="hand" style="font-size:1.3rem;margin:30px 0 6px;">Reading the film: pipe radiography geometry</h3>
+  <p class="section-lead">Every method so far assumed you can get to both sides of the part. A pipe is a closed tube — sometimes the X-ray source can only sit on one side of it. That changes the setup, and the pipe world has a name for each version.</p>
+  <div style="max-width:460px;margin:10px auto 14px;color:var(--ink);">
+    <svg viewBox="0 0 460 175">
+      <g filter="url(#rough)" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="105" cy="80" r="66"/>
+        <circle cx="105" cy="80" r="54"/>
+        <circle cx="105" cy="80" r="5" fill="currentColor"/>
+        <line x1="105" y1="80" x2="148" y2="56" stroke-dasharray="3 4"/>
+        <line x1="105" y1="80" x2="160" y2="80" stroke-dasharray="3 4"/>
+        <line x1="105" y1="80" x2="148" y2="104" stroke-dasharray="3 4"/>
+        <path d="M156 42 A 66 66 0 0 1 156 118" stroke-width="5"/>
+        <circle cx="335" cy="80" r="66"/>
+        <circle cx="335" cy="80" r="54"/>
+        <circle cx="242" cy="80" r="5" fill="currentColor"/>
+        <line x1="242" y1="80" x2="398" y2="66" stroke-dasharray="3 4"/>
+        <line x1="242" y1="80" x2="401" y2="80" stroke-dasharray="3 4"/>
+        <line x1="242" y1="80" x2="398" y2="94" stroke-dasharray="3 4"/>
+        <path d="M394 52 A 12 42 0 0 1 394 108" stroke-width="5"/>
+      </g>
+      <text x="105" y="160" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="currentColor">Single wall &middot; source inside</text>
+      <text x="335" y="160" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="currentColor">Double wall &middot; source outside</text>
+    </svg>
+  </div>
+  <ul class="film-list" style="margin:0 0 6px;padding-left:20px;">
+    <li><strong>Single Wall Single Image (SWSI):</strong> source goes inside the pipe, film wraps the outside right in front of it. The beam crosses one wall to reach the film — the cleanest shot, if there's room to get the source inside.</li>
+    <li><strong>SWSI panoramic:</strong> same idea, but the source sits dead-center of the pipe and film wraps the entire circumference. One shot images the whole weld seam at once — the efficient move on large-diameter pipe.</li>
+    <li><strong>Double Wall Single Image (DWSI):</strong> can't get inside? Source stays outside, angled so its beam crosses both walls before hitting film on the far side — the angle keeps the two wall images from overlapping, so it's still one clean picture. Used above roughly 100mm pipe diameter.</li>
+    <li><strong>Double Wall Double Image (DWDI):</strong> same double-wall shot, but square-on instead of angled — both walls land on the film together as one elliptical shape. Used when there's no room to angle the source.</li>
+  </ul>
+  <p class="aside hand">Did you know? The Image Quality Indicator (IQI) always rides on the source side of the film — it's how the inspector proves the image is sharp enough to trust, before they even go looking for a defect.</p>
+
 </section>
 
 <section id="cheatsheet" class="section">
