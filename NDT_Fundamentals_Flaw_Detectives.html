@@ -474,6 +474,14 @@ table.sketch-table tbody tr:nth-child(even){background:#fbfaf5;}
       why: "VT is the original, no-gadget-required inspection tool — every other method builds on top of it. The other three all need equipment: a probe, a beam, or a coil."
     },
     {
+      tag: "EASY · Rookie Case",
+      tagClass: "badge-easy",
+      q: "Besides finding cracks, which of these is also one of NDT's nine recognized jobs?",
+      options: ["Leak detection","Deciding paint color","Setting production targets","Hiring inspectors"],
+      correct: 0,
+      why: "Leak detection is one of the nine areas NDT covers, right alongside flaw detection. The other options aren't NDT jobs at all."
+    },
+    {
       tag: "MEDIUM · Field Case",
       tagClass: "badge-medium",
       q: "You need to check a plain-carbon steel pipe for a shallow surface crack — fast and cheap. Which tool fits best?",
@@ -490,6 +498,22 @@ table.sketch-table tbody tr:nth-child(even){background:#fbfaf5;}
       why: "Leftover magnetism is not cosmetic — it actively causes problems later: arc blow in welding, chips sticking during machining, even a confused compass nearby."
     },
     {
+      tag: "MEDIUM · Field Case",
+      tagClass: "badge-medium",
+      q: "You need to inspect the inside of a long, curved pipe you can't see into directly. Which piece of VT kit fits?",
+      options: ["Magnifying glass","Fiber-optic borescope","Inspection mirror","Naked eye"],
+      correct: 1,
+      why: "A fiber-optic borescope is built to see around bends into places a mirror or magnifier can't reach — mirrors and magnifiers still need a straight, close line of sight."
+    },
+    {
+      tag: "MEDIUM · Field Case",
+      tagClass: "badge-medium",
+      q: "Look at the real radiograph photo in the Radiographic Testing card. That thin dark line running through the middle is:",
+      options: ["A crack, revealed because less material there blocked less radiation","Extra weld metal blocking radiation","A scratch on the film itself","The pipe's manufacturer stamp"],
+      correct: 0,
+      why: "Cracks show up dark because they're a gap — radiation passes through more easily there than through solid metal, so more of it reaches the film and darkens that spot."
+    },
+    {
       tag: "HARD · Cold Case",
       tagClass: "badge-hard",
       q: "A suspected void sits deep inside a thick weld, nowhere near the surface. The area cannot be cleared for a radiation safety zone right now. Which tool still gets the job done?",
@@ -504,6 +528,22 @@ table.sketch-table tbody tr:nth-child(even){background:#fbfaf5;}
       options: ["The probe is broken","The material is too thin to test","There is a hidden defect somewhere between the front and back surfaces","Sound cannot travel through this particular material"],
       correct: 2,
       why: "That third blip is sound bouncing off something it should not — a defect — and it steals energy from the back-wall echo, which is exactly why that echo shows up weaker."
+    },
+    {
+      tag: "HARD · Cold Case",
+      tagClass: "badge-hard",
+      q: "A 250mm-diameter pipe weld needs a radiograph, and there is no way to fit the X-ray source inside the pipe. Which pipe-radiography technique applies, and why?",
+      options: ["SWSI, because source-inside is always required for large pipe","DWSI, since the source stays outside and the beam is angled to keep both wall images from overlapping","DWDI, since 250mm is under the double-wall limit","SWSI panoramic, because source-inside images the whole circumference at once"],
+      correct: 1,
+      why: "DWSI is the outside-source, angled-beam technique used above roughly 100mm diameter — the angle is exactly what keeps the near-wall and far-wall images from landing on top of each other. Both SWSI variants require the source inside the pipe, which is ruled out here."
+    },
+    {
+      tag: "HARD · Cold Case",
+      tagClass: "badge-hard",
+      q: "A pipe mill wants to check a weld for a possible deep lack-of-fusion AND get a permanent record for the customer's file, but there is no time to clear a radiation safety zone today. Which single method comes closest to satisfying both needs, and what is the one thing it can't give them?",
+      options: ["Ultrasonic Testing — finds the deep defect and needs no radiation zone, but gives no permanent visual record","Magnetic Particle Testing — fast and safe, but only checks the surface","Radiographic Testing — gives the record but needs the radiation zone anyway","Visual Testing — safest option, but only surface-deep"],
+      correct: 0,
+      why: "UT reaches just as deep as RT and skips the radiation-zone problem entirely — but it only ever gives a live reading on screen, not a picture you can file away. That trade-off is the real answer here, not a method that fails the scenario outright."
     }
   ];
 
@@ -551,8 +591,8 @@ table.sketch-table tbody tr:nth-child(even){background:#fbfaf5;}
 
   function renderResults(){
     var rank, msg;
-    if (score >= 5){ rank = 'NDT Guru — Ready for the Shop Floor'; msg = 'Perfect score. All six tools, and the reasoning behind each one — you have got it.'; }
-    else if (score >= 3){ rank = 'Sharp-Eyed Field Agent — Almost There'; msg = 'Solid work. A quick re-read of the case you missed above and you are fully caught up.'; }
+    if (score >= 8){ rank = 'NDT Guru — Ready for the Shop Floor'; msg = 'Excellent — the six tools, the pipe-radiography geometry, and the nuances that trip people up. You have got it.'; }
+    else if (score >= 5){ rank = 'Sharp-Eyed Field Agent — Almost There'; msg = 'Solid work. A quick re-read of the cases you missed above and you are fully caught up.'; }
     else { rank = 'Keen Rookie — Worth Another Read'; msg = 'Everyone starts here. Scroll back up through the toolkit once more, then give the case files another shot.'; }
     app.innerHTML =
       '<div class="quiz-progress hand">Final Score</div>' +
