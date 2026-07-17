@@ -6,19 +6,22 @@
 <title>NDT Fundamentals — Flaw Detectives</title>
 <style>
 :root{
-  --paper:#fdfcf7;
+  --paper:#faf6ef;
   --card:#ffffff;
-  --ink:#1c1c1a;
-  --ink-soft:#3a3a36;
-  --muted:#6f6b62;
-  --rule:#d8d2c2;
+  --ink:#221f1a;
+  --ink-soft:#2a2723;
+  --muted:#6b6455;
+  --rule:#ddd4c2;
+  --rust:#b5533c;
+  --olive:#6b7d4f;
+  --navy:#2c3e63;
   --green:#2e7d46;
   --green-bg:#e8f5ec;
   --red:#c1443c;
   --red-bg:#fbeceb;
   --amber:#a66c14;
   --amber-bg:#fbf1de;
-  --font-hand:'Segoe Print','Bradley Hand ITC','Comic Sans MS',cursive;
+  --font-hand:Georgia,'Times New Roman',serif;
   --font-body:'Segoe UI',system-ui,-apple-system,sans-serif;
 }
 *{box-sizing:border-box;}
@@ -52,9 +55,7 @@ a{color:var(--ink-soft);}
 .section h2{font-size:1.8rem;margin-bottom:4px;}
 .section-lead{color:var(--muted);margin-top:0;}
 
-.sketch-card{position:relative;background:var(--card);border-radius:14px 18px 14px 20px/18px 14px 20px 14px;margin:20px 0;}
-.sketch-card::before{content:"";position:absolute;inset:-3px;border:2px solid var(--ink);border-radius:inherit;transform:rotate(-0.35deg);pointer-events:none;}
-.sketch-card::after{content:"";position:absolute;inset:-6px;border:1.5px solid var(--ink);border-radius:inherit;transform:rotate(0.5deg);opacity:.45;pointer-events:none;}
+.sketch-card{position:relative;background:var(--card);border-radius:4px;margin:20px 0;border:1px solid var(--rule);border-top:3px solid var(--ink);}
 
 details.method{padding:0;}
 details.method summary{list-style:none;display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;position:relative;z-index:2;}
@@ -62,7 +63,7 @@ details.method summary::-webkit-details-marker{display:none;}
 .m-icon{flex:0 0 auto;width:44px;height:44px;color:var(--ink);}
 .m-name{font-size:1.25rem;flex:0 0 auto;white-space:nowrap;}
 .m-name em{font-style:normal;color:var(--muted);font-family:var(--font-body);font-size:0.82rem;}
-.m-tag{color:var(--ink-soft);font-size:0.95rem;flex:1 1 200px;font-style:italic;}
+.m-tag{color:var(--ink-soft);font-size:0.95rem;flex:1 1 200px;font-style:italic;font-family:Georgia,serif;}
 .chev{flex:0 0 auto;font-size:1.3rem;transition:transform .2s ease;color:var(--ink);}
 details[open] .chev{transform:rotate(90deg);}
 
