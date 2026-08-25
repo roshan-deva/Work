@@ -293,6 +293,7 @@
     const project = v('project');
     const date = v('shiftDate');
     const shift = v('shift');
+    if (!shift) { showToast('⚠️ Select a Shift (Day/Night) before exporting.'); return; }
     const prodOrder = v('prodOrder');
     const pipeSize = v('pipeSize');
     const coatingType = v('coatingType');
