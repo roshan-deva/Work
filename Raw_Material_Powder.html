@@ -747,7 +747,7 @@ function csvQuote(value) {
 function exportRows(list) {
   return list.map((e,i) =>
     [
-      i + 1,
+      csvQuote(String(i + 1)),
       csvQuote(e.recordId),
       csvQuote(e.eventType),
       csvQuote(e.material),
@@ -755,7 +755,7 @@ function exportRows(list) {
       csvQuote(e.manufacturer),
       csvQuote(e.grade),
       csvQuote(e.batchNo),
-      Number(e.count),
+      csvQuote(String(Number(e.count))),
       csvQuote(e.countUnit),
       csvQuote(e.operator),
       csvQuote(e.notes),
