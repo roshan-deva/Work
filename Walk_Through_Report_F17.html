@@ -257,8 +257,32 @@
 </div>
 
 <script>
+  const STORAGE_KEY = 'welspun_walk_through';
+  const HEADER_IDS = ['project','shiftDate','prodOrder','pipeSize','coatingType'];
   let entries = [];
   document.getElementById('shiftDate').valueAsDate = new Date();
+
+  window.addEventListener('load', () => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const d = JSON.parse(saved);
+        HEADER_IDS.forEach(id => { if (d.header && d.header[id]) document.getElementById(id).value = d.header[id]; });
+        entries = Array.isArray(d.entries) ? d.entries : [];
+        renderTable();
+      } catch (e) { /* corrupt save - start clean */ }
+    }
+    HEADER_IDS.forEach(id => {
+      document.getElementById(id).addEventListener('input', saveData);
+      document.getElementById(id).addEventListener('change', saveData);
+    });
+  });
+
+  function saveData() {
+    const header = {};
+    HEADER_IDS.forEach(id => header[id] = gv(id));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ header, entries }));
+  }
 
   function toggleSection(id, header) {
     const el = document.getElementById(id);
@@ -302,6 +326,7 @@
     };
 
     entries.push(entry);
+    saveData();
     renderTable();
 
     // Clear all entry fields
@@ -342,6 +367,7 @@
   function deleteEntry(idx) {
     if (confirm('Delete this entry?')) {
       entries.splice(idx, 1);
+      saveData();
       renderTable();
     }
   }
@@ -407,6 +433,7 @@
   function newShift() {
     if (entries.length === 0 || confirm('Clear all entries and start a new shift?')) {
       entries = [];
+      saveData();
       renderTable();
     }
   }
