@@ -71,6 +71,7 @@
   .collapsible-body.collapsed { max-height: 0; overflow: hidden; }
 
   @media print { .no-print { display: none !important; } body { background: #fff; } .card { box-shadow: none; border: 1px solid #ddd; } }
+.stamp{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8em;color:#64748b;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -232,11 +233,11 @@
           <tr>
             <th>#</th><th>Time</th><th>Pipe No.</th><th>Surf Temp</th><th>Blast Speed</th><th>Cleanliness</th>
             <th>AP Weld</th><th>AP Body</th><th>Coat Speed</th><th>Powder Temp</th><th>FBE</th><th>ARO</th>
-            <th>Cut Back</th><th>Stencil</th><th>Inspector</th><th class="no-print"></th>
+            <th>Cut Back</th><th>Stencil</th><th>Inspector</th><th title="Auto-recorded when Add Entry is pressed. Cannot be edited.">Entered At</th><th class="no-print"></th>
           </tr>
         </thead>
         <tbody id="logBody">
-          <tr><td colspan="16" class="empty-msg">No entries yet. Add the first walk through entry above.</td></tr>
+          <tr><td colspan="17" class="empty-msg">No entries yet. Add the first walk through entry above.</td></tr>
         </tbody>
       </table>
     </div>
@@ -267,6 +268,11 @@
   }
 
   function gv(id) { return document.getElementById(id).value.trim(); }
+  function stamp(ms){
+    if(!ms) return '';
+    const d=new Date(ms), p=n=>String(n).padStart(2,'0');
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  }
 
   function addEntry() {
     const pipeNo = gv('ePipeNo');
@@ -291,7 +297,8 @@
       jeepV: gv('eJeepV'), halfMoon: gv('eHalfMoon'),
       resMagCoated: gv('eResMagCoated'), resMagCoatedAvg: gv('eResMagCoatedAvg'),
       fbe: gv('eFBE'), aro: gv('eARO'), cutBack: gv('eCutBack'),
-      stencil: gv('eStencil'), barcodes: gv('eBarcodes')
+      stencil: gv('eStencil'), barcodes: gv('eBarcodes'),
+      enteredAt: Date.now()
     };
 
     entries.push(entry);
@@ -306,7 +313,7 @@
     const tbody = document.getElementById('logBody');
     document.getElementById('countBadge').textContent = entries.length;
     if (entries.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="16" class="empty-msg">No entries yet. Add the first walk through entry above.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="17" class="empty-msg">No entries yet. Add the first walk through entry above.</td></tr>';
       return;
     }
     tbody.innerHTML = entries.map((e, i) => `
@@ -326,6 +333,7 @@
         <td>${e.cutBack}</td>
         <td>${e.stencil}</td>
         <td>${e.inspector}</td>
+        <td class="stamp">${stamp(e.enteredAt)}</td>
         <td class="no-print"><button class="delete-btn" onclick="deleteEntry(${i})" title="Delete">✕</button></td>
       </tr>
     `).join('');
@@ -345,7 +353,7 @@
     let csv = 'WELSPUN TUBULAR LLC — LDCP WALK THROUGH REPORT\n';
     csv += 'Project,' + q(project) + ',Date,' + q(date) + '\n';
     csv += 'Generated,' + q(new Date().toLocaleString()) + '\n\n';
-    csv += '#,Time,Supervisor,Pipe No.,Inspector,Surf Temp,Res Mag 90,Res Mag Avg,Amb Temp,RH%,Preheat Temp,Blast Amps 1/2,Blast Amps 3/4,Blast Speed,Cleanliness,AP Weld,AP Body,Dustiness,Salt,Acid Temp,Acid Type,Acid Conc,Acid Dwell,Rinse pH,Rinse Pressure,Rinse Cond,Epoxy Temp,Dew Point,Epoxy RH,Guns FBE,Guns ARO,Coat Speed,Powder Temp,Post Temp,First Touch,Quench,Jeep V,Half Moon,Res Mag Coated,Res Mag Coated Avg,FBE,ARO,Cut Back,Stencil,Barcodes\n';
+    csv += '#,Time,Supervisor,Pipe No.,Inspector,Surf Temp,Res Mag 90,Res Mag Avg,Amb Temp,RH%,Preheat Temp,Blast Amps 1/2,Blast Amps 3/4,Blast Speed,Cleanliness,AP Weld,AP Body,Dustiness,Salt,Acid Temp,Acid Type,Acid Conc,Acid Dwell,Rinse pH,Rinse Pressure,Rinse Cond,Epoxy Temp,Dew Point,Epoxy RH,Guns FBE,Guns ARO,Coat Speed,Powder Temp,Post Temp,First Touch,Quench,Jeep V,Half Moon,Res Mag Coated,Res Mag Coated Avg,FBE,ARO,Cut Back,Stencil,Barcodes,Entered At\n';
     if (entries.length === 0) { csv += 'No entries recorded.\n'; }
     else entries.forEach((e,i) => {
       csv += [i+1,q(e.time),q(e.supervisor),q(e.pipeNo),q(e.inspector),
@@ -358,7 +366,7 @@
         q(e.gunsFBE),q(e.gunsARO),q(e.coatSpeed),q(e.powderTemp),q(e.postTemp),
         q(e.firstTouch),q(e.quench),q(e.jeepV),q(e.halfMoon),
         q(e.resMagCoated),q(e.resMagCoatedAvg),q(e.fbe),q(e.aro),q(e.cutBack),
-        q(e.stencil),q(e.barcodes)].join(',') + '\n';
+        q(e.stencil),q(e.barcodes),q(stamp(e.enteredAt))].join(',') + '\n';
     });
     const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
     const url = URL.createObjectURL(blob);
@@ -388,7 +396,8 @@
       text += `First Touch: ${e.firstTouch}s | Quench: ${e.quench}s | Jeep V: ${e.jeepV}V\n`;
       text += `Half Moon: ${e.halfMoon}% | Res. Mag Coated: ${e.resMagCoated}/${e.resMagCoatedAvg} gauss\n`;
       text += `FBE: ${e.fbe} mils | ARO: ${e.aro} mils | Cut Back: ${e.cutBack} in\n`;
-      text += `Stencil: ${e.stencil} | Barcodes: ${e.barcodes}\n\n`;
+      text += `Stencil: ${e.stencil} | Barcodes: ${e.barcodes}\n`;
+      text += `Entered At: ${stamp(e.enteredAt)}\n\n`;
     });
     navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!')).catch(() => {
       const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); alert('Copied!');
