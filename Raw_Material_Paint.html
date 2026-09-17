@@ -187,7 +187,7 @@ body{background:#fff}
 </div>
 
 <div id="receiptBatchField" class="field hidden" style="margin-top:16px">
-<label>Batch No. (optional)</label><input id="receiptBatch" type="text">
+<label>SAP Batch No. *</label><input id="receiptBatch" type="text" placeholder="From the delivery note / bag label">
 </div>
 
 <div id="consumedFields" class="hidden">
@@ -642,6 +642,11 @@ showToast(`⚠️ Count must be a whole number of at least ${minimum}.`);
 return;
 }
 if(eventType==="Receipt")batchNo=v("receiptBatch");
+if(eventType==="Receipt"&&!batchNo){
+showToast("⚠️ Batch No. is required on a Receipt — copy it from the delivery note.");
+document.getElementById("receiptBatch").focus();
+return;
+}
 }
 
 const enteredAt=Date.now();
