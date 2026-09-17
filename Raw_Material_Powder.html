@@ -221,7 +221,7 @@
 
     <div class="field" style="margin-top:16px">
       <label>Notes (optional)</label>
-      <textarea id="notes" rows="2"></textarea>
+      <textarea id="notes" rows="2" placeholder="No commas - use ; or / instead" oninput="this.value=this.value.replace(/,/g,';')"></textarea>
     </div>
 
     <div style="margin-top:20px">
@@ -741,7 +741,7 @@ function deleteEntry(id) {
 }
 
 function csvQuote(value) {
-  return '"' + String(value ?? "").replace(/"/g,'""') + '"';
+  return '"' + String(value ?? "").replace(/"/g,'""').replace(/,/g,';') + '"';
 }
 
 function exportRows(list) {
