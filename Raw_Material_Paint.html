@@ -645,7 +645,7 @@ if(eventType==="Receipt")batchNo=v("receiptBatch");
 }
 
 const enteredAt=Date.now();
-const recordId=`${plant}-${date}-${shift}-${nextSequence(date,shift)}`;
+const recordId=`${plant}-${MATERIAL}-${date}-${shift}-${nextSequence(date,shift)}`;
 
 entries.push({
 id:enteredAt+Math.floor(Math.random()*1000),
